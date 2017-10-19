@@ -1,5 +1,9 @@
 Review Comments :
 
-1. Lack of abstraction
+1. Lack of abstraction 
+	I have extracted the methods of test files into seperate classes : Helper, WebDriverInitialize and pageObject class
 2. Mixed declaration of WedElements. In few files directly inside test and in the other as @FindBy
-3. common methods directly defined within test files
+	I have declared most of the variables using @FindBy inside the pageObject class
+3. Common methods directly defined within test files
+	Created a seperate Helper file to hold all the common non driver related methods.
+	
