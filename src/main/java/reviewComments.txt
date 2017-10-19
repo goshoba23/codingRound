@@ -1,0 +1,5 @@
+Review Comments :
+
+1. Lack of abstraction
+2. Mixed declaration of WedElements. In few files directly inside test and in the other as @FindBy
+3. common methods directly defined within test files
