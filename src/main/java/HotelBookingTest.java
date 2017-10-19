@@ -1,62 +1,23 @@
-import com.sun.javafx.PlatformUtil;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
+import common.Helper;
+import pageObjects.ClearTripHome;
+
 import org.testng.annotations.Test;
-import org.testng.annotations.BeforeClass;
 
 public class HotelBookingTest {
 
-    WebDriver driver;// = setDriverPath();// = new ChromeDriver();
+	Helper helper = new Helper();
+	ClearTripHome clearTripPageObject = new ClearTripHome();
 
-    @BeforeClass
-    public void initialDriver(){
-    	driver = setDriverPath();
-    	PageFactory.initElements(driver, this);
-    }
-    
-    @FindBy(linkText = "Hotels")
-    private WebElement hotelLink;
-
-    @FindBy(id = "Tags")
-    private WebElement localityTextBox;
-
-    @FindBy(id = "SearchHotelsButton")
-    private WebElement searchButton;
-
-    @FindBy(id = "travellersOnhome")
-    private WebElement travellerSelection;
-
-    @Test
-    public void shouldBeAbleToSearchForHotels() {
-//        setDriverPath();
-
-        driver.get("https://www.cleartrip.com/");
-        hotelLink.click();
-
-        localityTextBox.sendKeys("Indiranagar, Bangalore");
-
-        new Select(travellerSelection).selectByVisibleText("1 room, 2 adults");
-        searchButton.click();
-
-        driver.quit();
-
-    }
-
-    private WebDriver setDriverPath() {
-        if (PlatformUtil.isMac()) {
-            System.setProperty("webdriver.chrome.driver", "chromedriver");
-        }
-        if (PlatformUtil.isWindows()) {
-            System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-        }
-        if (PlatformUtil.isLinux()) {
-            System.setProperty("webdriver.chrome.driver", "chromedriver_linux");
-        }
-        return new ChromeDriver();
-    }
-
+	@Test
+	public void shouldBeAbleToSearchForHotels() {
+		clearTripPageObject.openSite("https://www.cleartrip.com/");
+		helper.waitFor(2000);
+		clearTripPageObject.clickHotelLink();
+		clearTripPageObject.selectLocality("Indiranagar, Bangalore");
+		
+		clearTripPageObject.selectRoom("1 room, 2 adults");
+		helper.waitFor(2000);
+		clearTripPageObject.clickSearchButton();
+		clearTripPageObject.quitDriver();
+	}
 }
